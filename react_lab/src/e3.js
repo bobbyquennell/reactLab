@@ -17,11 +17,10 @@ const Star=(props)=>{
 
 		)
 }
-const Answer=()=>{
+const Answer=(props)=>{
 	return(
 		 <div className="col-5">
-			<span>5</span>
-			<span>6</span>
+		 	{props.selectedNumbers.map((number, i)=><span key={i}>{number}</span>)}
 		 </div>
 
 		)
@@ -34,32 +33,46 @@ const Button=()=>{
 
 		)
 }
-const Numbers=()=>{
+const Numbers=(props)=>{
 	const numbers = [1,2,3,4,5,6,7,8,9];
+	const decideClassName = (number)=>{
+		// for (var i = 0; i < props.selectedNumbers.length; i++) {
+		// 	if(props.selectedNumbers[i] == number){
+		// 		return "selected";
+		// 	}
+		// }
+		if(props.selectedNumbers.indexOf(number)>=0){
+			return 'selected';
+		}
+	}
 	return(
 		<div className=" card text-center">
-{/*			<span>1</span>
-			<span className="selected">2</span>
-			<span className="used">3</span>
-			<span>4</span>*/}
-			{numbers.map((number, i)=>{return (<span key={i}>{number}</span>);})}
+			{numbers.map((number, i)=><span className={decideClassName(number)} key={i}>{number}</span>)}
 		</div>
 		)
 }
-const Game = ()=>{
-	return (
+class Game extends React.Component{
+    constructor(props){
+    	super(props);
+		this.state = ({
+	    	selectedNumbers:[3,9]
+		});
+    }
+	render(){
+		return (
 		<div className="container">
 			<h2>Play Nine</h2>
 			<hr/>
 			<div className="row">
 			<Star />
 			<Button />
-			<Answer />
+			<Answer selectedNumbers = {this.state.selectedNumbers}/>
 			</div>
 			<br/>
-			<Numbers/>
+			<Numbers selectedNumbers = {this.state.selectedNumbers}/>
 		</div>
-	)
+	);
+	}
 }
 
 
