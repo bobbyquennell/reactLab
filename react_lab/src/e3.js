@@ -17,63 +17,55 @@ const Star=(props)=>{
 
 		)
 }
+
 const Answer=(props)=>{
 	return(
 		 <div className="col-5">
-		 	{props.selectedNumbers.map((number, i)=><span key={i}>{number}</span>)}
+		 	{props.selectedNumbers.map((number, i)=><span key={i} onClick={()=>props.UnselectHandler(number)}>{number}</span>)}
 		 </div>
 
 		)
 }
-const Button=()=>{
+const Button=(props)=>{
 	return(
 		 <div className="col-2">
-		 <button className="btn btn-default btn-lg">=</button>
+		 <button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0}>=</button>
 		 </div>
 
 		)
 }
-class Number extends React.Component{
+// class Numbers extends React.Component{
 
-    constructor(props){
-    	super(props);
-    	this.state = {
-    		number:[1,2,3,4,5,6,7,8,9],
+//     constructor(props){
+//     	super(props);
+//     	this.state = {
+//     		numbers:[1,2,3,4,5,6,7,8,9],
+//     	}
+//     	this.decideClassName=this.decideClassName.bind(this);
 
-    	}
-    }
-    decideClassName = (number)=>{
-		// for (var i = 0; i < props.selectedNumbers.length; i++) {
-		// 	if(props.selectedNumbers[i] == number){
-		// 		return "selected";
-		// 	}
-		// }
-		if(props.selectedNumbers.indexOf(number)>=0){
-			return 'selected';
-		}
+//     }
+//     decideClassName (number){
+// 		// for (var i = 0; i < props.selectedNumbers.length; i++) {
+// 		// 	if(props.selectedNumbers[i] == number){
+// 		// 		return "selected";
+// 		// 	}
+// 		// }
+// 		console.log("decideClassName: " +number)
+// 		if(this.props.selectedNumbers.indexOf(number)>=0){
+// 			return 'selected';
+// 		}
+// 	}
 
-	render(){
-		return {
-		<div className=" card text-center">
-			{numbers.map((number, i)=><span className={decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number,decideClassName(number));}}>{number}</span>)}
-		</div>
-		}
-	}
-}
-=(props)=>{
-	const numbers = [1,2,3,4,5,6,7,8,9];
-	const decideClassName = (number)=>{
-		// for (var i = 0; i < props.selectedNumbers.length; i++) {
-		// 	if(props.selectedNumbers[i] == number){
-		// 		return "selected";
-		// 	}
-		// }
-		if(props.selectedNumbers.indexOf(number)>=0){
-			return 'selected';
-		}
-	}
-
-}
+// 	render(){
+// 		return (
+// 		<div className="card text-center">
+// 			{this.state.numbers.map((number, i)=><span 
+// 				className={this.decideClassName(number)} key={i} 
+// 				onClick={this.props.clickHandler(number,this.decideClassName(number))}>{number}</span>)}
+// 		</div>
+// 		);
+// 	}
+// }
 const Numbers=(props)=>{
 	const numbers = [1,2,3,4,5,6,7,8,9];
 	const decideClassName = (number)=>{
@@ -88,7 +80,7 @@ const Numbers=(props)=>{
 	}
 	return(
 		<div className=" card text-center">
-			{numbers.map((number, i)=><span className={decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number,decideClassName(number));}}>{number}</span>)}
+			{numbers.map((number, i)=><span className={decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number);}}>{number}</span>)}
 		</div>
 		)
 }
@@ -100,13 +92,20 @@ class Game extends React.Component{
 	    	starCount:Math.floor(Math.random()*9) + 1
 		});
 		this.selectNumber = this.selectNumber.bind(this);
+		this.UnselectHandler = this.UnselectHandler.bind(this);
     }
-    selectNumber(clickedNumber,className){
-    	if(className == 'selected'){
+    selectNumber(clickedNumber){
+    	console.log("hit");
+    	 if(this.state.selectedNumbers.indexOf(clickedNumber)<0){
 	    	this.setState((prevState)=>({
 	    		selectedNumbers:prevState.selectedNumbers.concat(clickedNumber)
 	    	}));
     	}
+    }
+    UnselectHandler(clickedNumber){
+       this.setState((prevState)=>({
+	    		selectedNumbers:prevState.selectedNumbers.filter(number=> number!==clickedNumber)
+	    	}));
     }
 	render(){
 		return (
@@ -115,8 +114,8 @@ class Game extends React.Component{
 			<hr/>
 			<div className="row">
 			<Star starCount={this.state.starCount}/>
-			<Button />
-			<Answer selectedNumbers={this.state.selectedNumbers}/>
+			<Button selectedNumbers={this.state.selectedNumbers}/>
+			<Answer selectedNumbers={this.state.selectedNumbers} UnselectHandler={this.UnselectHandler}/>
 			</div>
 			<br/>
 			<Numbers selectedNumbers={this.state.selectedNumbers}
