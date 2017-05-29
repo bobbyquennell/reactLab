@@ -4,7 +4,7 @@ import './App.css';
 
 
 const Star=(props)=>{
-   const starNumber = Math.floor(Math.random()*9) + 1;
+   const starNumber = props.starCount;
    var stars = [];
    //react encourages using array methods like: map, filter, reduce instead of loops
    for (let i = 0; i < starNumber; i++) {
@@ -33,6 +33,47 @@ const Button=()=>{
 
 		)
 }
+class Number extends React.Component{
+
+    constructor(props){
+    	super(props);
+    	this.state = {
+    		number:[1,2,3,4,5,6,7,8,9],
+
+    	}
+    }
+    decideClassName = (number)=>{
+		// for (var i = 0; i < props.selectedNumbers.length; i++) {
+		// 	if(props.selectedNumbers[i] == number){
+		// 		return "selected";
+		// 	}
+		// }
+		if(props.selectedNumbers.indexOf(number)>=0){
+			return 'selected';
+		}
+
+	render(){
+		return {
+		<div className=" card text-center">
+			{numbers.map((number, i)=><span className={decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number,decideClassName(number));}}>{number}</span>)}
+		</div>
+		}
+	}
+}
+=(props)=>{
+	const numbers = [1,2,3,4,5,6,7,8,9];
+	const decideClassName = (number)=>{
+		// for (var i = 0; i < props.selectedNumbers.length; i++) {
+		// 	if(props.selectedNumbers[i] == number){
+		// 		return "selected";
+		// 	}
+		// }
+		if(props.selectedNumbers.indexOf(number)>=0){
+			return 'selected';
+		}
+	}
+
+}
 const Numbers=(props)=>{
 	const numbers = [1,2,3,4,5,6,7,8,9];
 	const decideClassName = (number)=>{
@@ -47,7 +88,7 @@ const Numbers=(props)=>{
 	}
 	return(
 		<div className=" card text-center">
-			{numbers.map((number, i)=><span className={decideClassName(number)} key={i}>{number}</span>)}
+			{numbers.map((number, i)=><span className={decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number,decideClassName(number));}}>{number}</span>)}
 		</div>
 		)
 }
@@ -55,8 +96,17 @@ class Game extends React.Component{
     constructor(props){
     	super(props);
 		this.state = ({
-	    	selectedNumbers:[3,9]
+	    	selectedNumbers:[],
+	    	starCount:Math.floor(Math.random()*9) + 1
 		});
+		this.selectNumber = this.selectNumber.bind(this);
+    }
+    selectNumber(clickedNumber,className){
+    	if(className == 'selected'){
+	    	this.setState((prevState)=>({
+	    		selectedNumbers:prevState.selectedNumbers.concat(clickedNumber)
+	    	}));
+    	}
     }
 	render(){
 		return (
@@ -64,12 +114,13 @@ class Game extends React.Component{
 			<h2>Play Nine</h2>
 			<hr/>
 			<div className="row">
-			<Star />
+			<Star starCount={this.state.starCount}/>
 			<Button />
-			<Answer selectedNumbers = {this.state.selectedNumbers}/>
+			<Answer selectedNumbers={this.state.selectedNumbers}/>
 			</div>
 			<br/>
-			<Numbers selectedNumbers = {this.state.selectedNumbers}/>
+			<Numbers selectedNumbers={this.state.selectedNumbers}
+			          clickHandler={this.selectNumber}/>
 		</div>
 	);
 	}
