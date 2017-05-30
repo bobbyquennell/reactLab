@@ -29,7 +29,7 @@ const Answer=(props)=>{
 const Button=(props)=>{
 	return(
 		 <div className="col-2">
-		 <button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0}>=</button>
+		 <button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0} onClick={()=>props.checkAnwser()}>=</button>
 		 </div>
 
 		)
@@ -89,19 +89,26 @@ class Game extends React.Component{
     	super(props);
 		this.state = ({
 	    	selectedNumbers:[],
-	    	starCount:Math.floor(Math.random()*9) + 1
+	    	starCount:Math.floor(Math.random()*9) + 1,
+	    	isAnswerCorrect:null
 		});
 		this.selectNumber = this.selectNumber.bind(this);
 		this.UnselectHandler = this.UnselectHandler.bind(this);
+		this.checkAnwser = this.checkAnwser.bind(this);
     }
     selectNumber(clickedNumber){
-    	console.log("hit");
     	 if(this.state.selectedNumbers.indexOf(clickedNumber)<0){
 	    	this.setState((prevState)=>({
 	    		selectedNumbers:prevState.selectedNumbers.concat(clickedNumber)
 	    	}));
     	}
     }
+    checkAnwser(){
+    	this.setState((prevState)=>({
+    		isAnswerCorrect: prevState.selectedNumbers.reduce((acc, n)=>acc+n, 0) === prevState.starCount
+    	}));
+    	console.log(this.state.isAnswerCorrect);
+    };
     UnselectHandler(clickedNumber){
        this.setState((prevState)=>({
 	    		selectedNumbers:prevState.selectedNumbers.filter(number=> number!==clickedNumber)
@@ -114,7 +121,7 @@ class Game extends React.Component{
 			<hr/>
 			<div className="row">
 			<Star starCount={this.state.starCount}/>
-			<Button selectedNumbers={this.state.selectedNumbers}/>
+			<Button selectedNumbers={this.state.selectedNumbers} checkAnwser={this.checkAnwser} isAnswerCorrect={this.state.isAnswerCorrect}/>
 			<Answer selectedNumbers={this.state.selectedNumbers} UnselectHandler={this.UnselectHandler}/>
 			</div>
 			<br/>
