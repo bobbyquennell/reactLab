@@ -27,9 +27,30 @@ const Answer=(props)=>{
 		)
 }
 const Button=(props)=>{
+			let Mybutton;
+
+		switch(props.isAnswerCorrect)
+		{
+			case true:
+				Mybutton = <button className="btn btn-success btn-lg" disabled={props.selectedNumbers.length<=0} onClick={()=>props.submitAnwser()}><i className="fa fa-check"></i></button>;
+				break;
+			case false:
+				Mybutton=<button className="btn btn-danger btn-lg" disabled={props.selectedNumbers.length<=0}><i className="fa fa-times"></i></button>
+				break;
+			default:
+				Mybutton=<button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0} onClick={()=>{
+					   props.checkAnwser();}}>=</button>
+				break;
+		}
+
 	return(
-		 <div className="col-2">
-		 <button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0} onClick={()=>props.checkAnwser()}>=</button>
+
+		 <div className="col-2 text-center">
+		   {Mybutton}
+		   <br/><br/>
+		   <button className="btn btn-warning"onClick={()=>props.redraw()} disabled={props.redrawLimit===0}>
+		   	<i className="fa fa-refresh"></i> {props.redrawLimit}
+		   </button>
 		 </div>
 
 		)
@@ -74,6 +95,9 @@ const Numbers=(props)=>{
 		// 		return "selected";
 		// 	}
 		// }
+		if(props.usedNumbers.indexOf(number)>=0){
+			return 'used';
+		}
 		if(props.selectedNumbers.indexOf(number)>=0){
 			return 'selected';
 		}
@@ -85,23 +109,40 @@ const Numbers=(props)=>{
 		)
 }
 class Game extends React.Component{
+	randomStarNumber(){
+		return Math.floor(Math.random()*9) + 1;
+	}
     constructor(props){
     	super(props);
 		this.state = ({
 	    	selectedNumbers:[],
-	    	starCount:Math.floor(Math.random()*9) + 1,
-	    	isAnswerCorrect:null
+	    	usedNumbers:[],
+	    	starCount:this.randomStarNumber(),
+	    	isAnswerCorrect:null,
+	    	redrawLimit:5
 		});
 		this.selectNumber = this.selectNumber.bind(this);
 		this.UnselectHandler = this.UnselectHandler.bind(this);
 		this.checkAnwser = this.checkAnwser.bind(this);
+		this.submitAnwser = this.submitAnwser.bind(this);
+		this.redraw = this.redraw.bind(this);
     }
     selectNumber(clickedNumber){
-    	 if(this.state.selectedNumbers.indexOf(clickedNumber)<0){
+    	 if(this.state.selectedNumbers.indexOf(clickedNumber)<0 && this.state.usedNumbers.indexOf(clickedNumber)<0){
 	    	this.setState((prevState)=>({
-	    		selectedNumbers:prevState.selectedNumbers.concat(clickedNumber)
+	    		selectedNumbers:prevState.selectedNumbers.concat(clickedNumber),
+	    		isAnswerCorrect:null
 	    	}));
     	}
+    }
+    submitAnwser(){
+
+    	this.setState((prevState)=>({
+            starCount:this.randomStarNumber(),
+            usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
+            selectedNumbers:[],
+            isAnswerCorrect:null
+    	}))
     }
     checkAnwser(){
     	this.setState((prevState)=>({
@@ -111,8 +152,19 @@ class Game extends React.Component{
     };
     UnselectHandler(clickedNumber){
        this.setState((prevState)=>({
-	    		selectedNumbers:prevState.selectedNumbers.filter(number=> number!==clickedNumber)
+	    		selectedNumbers:prevState.selectedNumbers.filter(number=> number!==clickedNumber),
+	    		isAnswerCorrect:null
 	    	}));
+    }
+    redraw(){
+    	if(this.state.redrawLimit>0)
+		this.setState((prevState)=>({
+    		starCount:this.randomStarNumber(),
+    		redrawLimit: prevState.redrawLimit-1,
+    		selectedNumbers:[],
+    		isAnswerCorrect:null
+		}));
+
     }
 	render(){
 		return (
@@ -121,12 +173,14 @@ class Game extends React.Component{
 			<hr/>
 			<div className="row">
 			<Star starCount={this.state.starCount}/>
-			<Button selectedNumbers={this.state.selectedNumbers} checkAnwser={this.checkAnwser} isAnswerCorrect={this.state.isAnswerCorrect}/>
+			<Button selectedNumbers={this.state.selectedNumbers} checkAnwser={this.checkAnwser} submitAnwser={this.submitAnwser}  isAnswerCorrect={this.state.isAnswerCorrect} redraw={this.redraw}
+			redrawLimit={this.state.redrawLimit}/>
+
 			<Answer selectedNumbers={this.state.selectedNumbers} UnselectHandler={this.UnselectHandler}/>
 			</div>
 			<br/>
 			<Numbers selectedNumbers={this.state.selectedNumbers}
-			          clickHandler={this.selectNumber}/>
+			          clickHandler={this.selectNumber} usedNumbers={this.state.usedNumbers}/>
 		</div>
 	);
 	}
