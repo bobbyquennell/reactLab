@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import _ from 'lodash'
 /*this is an App for React Js Getting Started by Samer Buna, Chapter 4: Building the Game interface*/
 
 
@@ -108,6 +109,14 @@ const Numbers=(props)=>{
 		</div>
 		)
 }
+const DoneStatus=(props)=>{
+	console.log(props.doneStatus);
+	return(
+		<div>
+			<h2 className="text-center">{props.doneStatus}</h2>
+		</div>
+		);
+}
 class Game extends React.Component{
 	randomStarNumber(){
 		return Math.floor(Math.random()*9) + 1;
@@ -119,7 +128,8 @@ class Game extends React.Component{
 	    	usedNumbers:[],
 	    	starCount:this.randomStarNumber(),
 	    	isAnswerCorrect:null,
-	    	redrawLimit:5
+	    	redrawLimit:5,
+	    	doneStatus:null
 		});
 		this.selectNumber = this.selectNumber.bind(this);
 		this.UnselectHandler = this.UnselectHandler.bind(this);
@@ -165,8 +175,36 @@ class Game extends React.Component{
     		isAnswerCorrect:null
 		}));
 
+    };
+    updateDoneStatue = ()=>{
+
+    	this.setState((prevState)=>{
+		      if(prevState.usedNumbers.length ===9){
+		      	return {doneStatus:"Done. Nice!"}
+		      }
+		      if(prevState.redraw === 0 && !this.possibleSolutions(prevState)){
+		      	return {doneStatus:"Game Over!"}
+		      }
+    	});
+    }
+    possibleSolutions=({randomStarNumber, usedNumbers})=>{
+
+    	const possibleNumbers = _.range(1,10).filer(number=>
+    			usedNumbers.indexOf(number) <0
+    		);
     }
 	render(){
+		let result;
+		if(this.state.doneStatus !== null){
+			console.log("this.doneStatus !== null");
+				result=<DoneStatus doneStatus={this.state.doneStatus}/>
+			}
+			else{
+				console.log("this.doneStatus === null");
+							result=<Numbers selectedNumbers={this.state.selectedNumbers}
+			          clickHandler={this.selectNumber} usedNumbers={this.state.usedNumbers}/>
+			}
+
 		return (
 		<div className="container">
 			<h2>Play Nine</h2>
@@ -179,14 +217,32 @@ class Game extends React.Component{
 			<Answer selectedNumbers={this.state.selectedNumbers} UnselectHandler={this.UnselectHandler}/>
 			</div>
 			<br/>
-			<Numbers selectedNumbers={this.state.selectedNumbers}
-			          clickHandler={this.selectNumber} usedNumbers={this.state.usedNumbers}/>
+			{result}
+
+			<br/>
+
 		</div>
 	);
 	}
 }
 
-
+var possibleCombinationSum = function(arr, n) {
+  if (arr.indexOf(n) >= 0) { return true; }
+  if (arr[0] > n) { return false; }
+  if (arr[arr.length - 1] > n) {
+    arr.pop();
+    return possibleCombinationSum(arr, n);
+  }
+  var listSize = arr.length, combinationsCount = (1 << listSize)
+  for (var i = 1; i < combinationsCount ; i++ ) {
+    var combinationSum = 0;
+    for (var j=0 ; j < listSize ; j++) {
+      if (i & (1 << j)) { combinationSum += arr[j]; }
+    }
+    if (n === combinationSum) { return true; }
+  }
+  return false;
+};
 
 
 class App extends React.Component{

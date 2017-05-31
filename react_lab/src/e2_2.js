@@ -1,7 +1,7 @@
 import React from 'react'
 //import ReactDOM from 'react-dom'
 import axios from 'axios'
-
+import _ from 'lodash'
 class Form extends React.Component{
 	constructor(props){
 		super(props);
