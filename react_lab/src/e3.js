@@ -157,7 +157,7 @@ class Game extends React.Component{
 	    	starCount:this.randomStarNumber(),
 	    	isAnswerCorrect:null,
 	    	redrawLimit:15,
-	    	doneStatus:"test"
+	    	doneStatus:null
 		});
 		this.selectNumber = this.selectNumber.bind(this);
 		this.UnselectHandler = this.UnselectHandler.bind(this);
