@@ -3,6 +3,23 @@ import './App.css';
 import _ from 'lodash'
 /*this is an App for React Js Getting Started by Samer Buna, Chapter 4: Building the Game interface*/
 
+var possibleCombinationSum = function(arr, n) {
+  if (arr.indexOf(n) >= 0) { return true; }
+  if (arr[0] > n) { return false; }
+  if (arr[arr.length - 1] > n) {
+    arr.pop();
+    return possibleCombinationSum(arr, n);
+  }
+  var listSize = arr.length, combinationsCount = (1 << listSize)
+  for (var i = 1; i < combinationsCount ; i++ ) {
+    var combinationSum = 0;
+    for (var j=0 ; j < listSize ; j++) {
+      if (i & (1 << j)) { combinationSum += arr[j]; }
+    }
+    if (n === combinationSum) { return true; }
+  }
+  return false;
+};
 
 const Star=(props)=>{
    const starNumber = props.starCount;
@@ -112,8 +129,9 @@ const Numbers=(props)=>{
 const DoneStatus=(props)=>{
 	console.log(props.doneStatus);
 	return(
-		<div>
+		<div className="text-center">
 			<h2 className="text-center">{props.doneStatus}</h2>
+			<button className="btn btn-secondary" onClick={props.resetGame}>Play Again</button>
 		</div>
 		);
 }
@@ -121,6 +139,16 @@ class Game extends React.Component{
 	randomStarNumber(){
 		return Math.floor(Math.random()*9) + 1;
 	}
+	initializeState = ()=>
+	       {
+	       	this.setState({
+		    selectedNumbers:[],
+	    	usedNumbers:[],
+	    	starCount:this.randomStarNumber(),
+	    	isAnswerCorrect:null,
+	    	redrawLimit:15,
+	    	doneStatus:null});
+	   }
     constructor(props){
     	super(props);
 		this.state = ({
@@ -128,8 +156,8 @@ class Game extends React.Component{
 	    	usedNumbers:[],
 	    	starCount:this.randomStarNumber(),
 	    	isAnswerCorrect:null,
-	    	redrawLimit:5,
-	    	doneStatus:null
+	    	redrawLimit:15,
+	    	doneStatus:"test"
 		});
 		this.selectNumber = this.selectNumber.bind(this);
 		this.UnselectHandler = this.UnselectHandler.bind(this);
@@ -152,7 +180,7 @@ class Game extends React.Component{
             usedNumbers: prevState.usedNumbers.concat(prevState.selectedNumbers),
             selectedNumbers:[],
             isAnswerCorrect:null
-    	}))
+    	}), this.updateDoneStatus);
     }
     checkAnwser(){
     	this.setState((prevState)=>({
@@ -173,31 +201,37 @@ class Game extends React.Component{
     		redrawLimit: prevState.redrawLimit-1,
     		selectedNumbers:[],
     		isAnswerCorrect:null
-		}));
+		}), this.updateDoneStatus);
 
     };
-    updateDoneStatue = ()=>{
-
+    updateDoneStatus = ()=>{
+        console.log("updateDoneStatus");
     	this.setState((prevState)=>{
+    		   console.log(prevState.usedNumbers);
 		      if(prevState.usedNumbers.length ===9){
+		      	console.log("Done")
 		      	return {doneStatus:"Done. Nice!"}
 		      }
-		      if(prevState.redraw === 0 && !this.possibleSolutions(prevState)){
+		      console.log(prevState.redrawLimit);
+		      if(prevState.redrawLimit === 0 && !this.possibleSolutions(prevState)){
+		      	console.log('Game Over')
 		      	return {doneStatus:"Game Over!"}
 		      }
     	});
     }
     possibleSolutions=({randomStarNumber, usedNumbers})=>{
 
-    	const possibleNumbers = _.range(1,10).filer(number=>
-    			usedNumbers.indexOf(number) <0
-    		);
+    	const possibleNumbers = _.range(1,10).filter(number=>usedNumbers.indexOf(number) <0);
+    	return possibleCombinationSum(possibleNumbers, randomStarNumber);
+    }
+    resetGame = ()=>{
+      this.initializeState();
     }
 	render(){
 		let result;
 		if(this.state.doneStatus !== null){
 			console.log("this.doneStatus !== null");
-				result=<DoneStatus doneStatus={this.state.doneStatus}/>
+				result=<DoneStatus doneStatus={this.state.doneStatus} resetGame={this.resetGame}/>
 			}
 			else{
 				console.log("this.doneStatus === null");
@@ -225,24 +259,6 @@ class Game extends React.Component{
 	);
 	}
 }
-
-var possibleCombinationSum = function(arr, n) {
-  if (arr.indexOf(n) >= 0) { return true; }
-  if (arr[0] > n) { return false; }
-  if (arr[arr.length - 1] > n) {
-    arr.pop();
-    return possibleCombinationSum(arr, n);
-  }
-  var listSize = arr.length, combinationsCount = (1 << listSize)
-  for (var i = 1; i < combinationsCount ; i++ ) {
-    var combinationSum = 0;
-    for (var j=0 ; j < listSize ; j++) {
-      if (i & (1 << j)) { combinationSum += arr[j]; }
-    }
-    if (n === combinationSum) { return true; }
-  }
-  return false;
-};
 
 
 class App extends React.Component{
