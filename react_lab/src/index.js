@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './e3';
+import App from './components/App';//swtich between different apps by editing the path here
 import './index.css';
 
 
