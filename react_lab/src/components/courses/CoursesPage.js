@@ -1,5 +1,6 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
+import * as courseActions from '../../actions/courseActions';
 class CoursesPage extends React.Component{
   constructor(props){
     super(props);
@@ -13,7 +14,8 @@ class CoursesPage extends React.Component{
       courseInput: event.target.value });
   }
   onClickSave = ()=>{
-    alert("Saving: " + this.state.courseInput);
+    //alert("Saving: " + this.state.courseInput);
+    this.props.dispatch(courseActions.createCourse(this.state.course));
   }
   render(){
     return(
@@ -27,4 +29,12 @@ class CoursesPage extends React.Component{
   }
 }
 
-export default CoursesPage;
+function mapStateToProps(state, ownProps){
+  return{
+    courseReducer:state.courses
+  }
+}
+
+// const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
+// export default connectedStateAndProps(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
