@@ -15,12 +15,16 @@ class CoursesPage extends React.Component{
   }
   onClickSave = ()=>{
     //alert("Saving: " + this.state.courseInput);
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.dispatch(courseActions.createCourse(this.state.courseInput));
+  }
+  courseRow = (course, index)=>{
+    return <div key={index}>{course}</div>
   }
   render(){
     return(
       <div>
           <h1>Courses</h1>
+          {this.props.courses.map(this.courseRow)}
           <h2>Add Courses</h2>
           <input type="text" onChange={this.onTitleChange} value={this.state.courseInput}/>
           <input type="submit" value="save" onClick={this.onClickSave}/>
@@ -31,10 +35,10 @@ class CoursesPage extends React.Component{
 
 function mapStateToProps(state, ownProps){
   return{
-    courseReducer:state.courses
+    courses:state.courseReducer
   }
 }
 
 // const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
 // export default connectedStateAndProps(CoursesPage);
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps)(CoursesPage);
