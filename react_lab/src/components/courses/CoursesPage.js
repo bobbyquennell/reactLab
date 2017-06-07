@@ -10,15 +10,17 @@ class CoursesPage extends React.Component{
   };
   onTitleChange = (event)=>{
     //event.preventDefault();
+    //const course = this.state.course;
+    //course.title = event.target.value;
     this.setState({
-      courseInput: event.target.value });
+      courseInput: event.target.value});
   }
   onClickSave = ()=>{
     //alert("Saving: " + this.state.courseInput);
     this.props.dispatch(courseActions.createCourse(this.state.courseInput));
   }
-  courseRow = (course, index)=>{
-    return <div key={index}>{course}</div>
+  courseRow = (courseInput, index)=>{
+    return <div key={index}>{courseInput}</div>
   }
   render(){
     return(
@@ -33,12 +35,14 @@ class CoursesPage extends React.Component{
   }
 }
 
-function mapStateToProps(state, ownProps){
+function mapStateToProps(state, ownProps){//this state here represent the state in redux store
   return{
-    courses:state.courseReducer
+    courses:state.courseReducer//the courses here will be the property exposed to our component
   }
 }
 
 // const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
 // export default connectedStateAndProps(CoursesPage);
 export default connect(mapStateToProps)(CoursesPage);
+// connect function creates the container component that can interact with redux
+// if ignore the second parameter: mapDispatchToProps, connect will insert a dispatch to property automatically
