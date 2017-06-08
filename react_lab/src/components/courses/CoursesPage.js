@@ -17,12 +17,19 @@ class CoursesPage extends React.Component{
   }
   onClickSave = ()=>{
     //alert("Saving: " + this.state.courseInput);
+    //option 1 to dispatch action:
+    console.log("Redux Flow step 1: dispatching action to redux")
     this.props.dispatch(courseActions.createCourse(this.state.courseInput));
+    this.setState({
+      courseInput:''
+    });
   }
-  courseRow = (courseInput, index)=>{
-    return <div key={index}>{courseInput}</div>
+  courseRow = (courseTitle, index)=>{
+    return <div key={index}>{courseTitle}</div>
   }
   render(){
+    //debugger;
+    //console.log(this.props.courses);
     return(
       <div>
           <h1>Courses</h1>
@@ -36,6 +43,7 @@ class CoursesPage extends React.Component{
 }
 
 function mapStateToProps(state, ownProps){//this state here represent the state in redux store
+  console.log('Redux Flow step 4: rendering the latest store state: courses--mapStateToProps');
   return{
     courses:state.courseReducer//the courses here will be the property exposed to our component
   }
@@ -45,4 +53,5 @@ function mapStateToProps(state, ownProps){//this state here represent the state 
 // export default connectedStateAndProps(CoursesPage);
 export default connect(mapStateToProps)(CoursesPage);
 // connect function creates the container component that can interact with redux
-// if ignore the second parameter: mapDispatchToProps, connect will insert a dispatch to property automatically
+// if ignore the second parameter: mapDispatchToProps, connect will insert a dispatch property to props automatically
+//dispatch is a function to fire the action
