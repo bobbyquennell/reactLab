@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as courseActions from '../../actions/courseActions';
+//import * as courseActions from '../../actions/courseActions';
+import {createCourse} from '../../actions/courseActions';
 import {bindActionCreators} from 'redux';
 class CoursesPage extends React.Component{
   constructor(props){
@@ -22,7 +23,8 @@ class CoursesPage extends React.Component{
     console.log("Redux Flow step 1: dispatching action to redux")
     //this.props.dispatch(courseActions.createCourse(this.state.courseInput));
     //option 2: manually dispatch action with help of mapDispatchToProps
-    this.props.actions.createCourse(this.state.courseInput);
+    //this.props.actions.createCourse(this.state.courseInput);
+    this.props.createCourse(this.state.courseInput);
     this.setState({
       courseInput:''
     });
@@ -52,12 +54,15 @@ function mapStateToProps(state, ownProps){//this state here represent the state 
   }
 }
 //option 2: manually mappting with mapDispatchToProps function detertimnes what actions are available in the component
-function mapDispatchToProps(dispatch){
-  return {
-    //createANewCourse: newCourse=> dispatch(courseActions.createCourse(newCourse))
-    actions:bindActionCreators(courseActions, dispatch)
-  }
-}
+// function mapDispatchToProps(dispatch){
+//   return {
+//     //createANewCourse: newCourse=> dispatch(courseActions.createCourse(newCourse))
+//     actions:bindActionCreators(courseActions, dispatch)
+//   }
+// }
+const mapDispatchToProps = {
+  createCourse
+};
 // const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
 // export default connectedStateAndProps(CoursesPage);
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
