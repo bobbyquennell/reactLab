@@ -29,8 +29,8 @@ class CoursesPage extends React.Component{
   //     courseInput:''
   //   });
   // }
-  courseRow = (courseTitle, index)=>{
-    return <div key={index}>{courseTitle}</div>
+  courseRow = (course, index)=>{
+    return <div key={index}>{course.title}</div>
   }
   render(){
     //debugger;
@@ -39,9 +39,10 @@ class CoursesPage extends React.Component{
       <div>
           <h1>Courses</h1>
           {this.props.courses.map(this.courseRow)}
-          // <h2>Add Courses</h2>
+          {// <h2>Add Courses</h2>
           // <input type="text" onChange={this.onTitleChange} value={this.state.courseInput}/>
           // <input type="submit" value="save" onClick={this.onClickSave}/>
+        }
       </div>
     );
   }
