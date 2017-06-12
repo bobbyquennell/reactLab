@@ -6,7 +6,7 @@ export function createCourse(course) {
   return {type:types.CREATE_COURSE, course};//type property is required for Redux
 }
 export function loadCoursesSuccess(courses){
-  return{type: LOAD_COURSES_SUCCESS, courses}
+  return{type: types.LOAD_COURSES_SUCCESS, courses}
 }
 
 export function loadCourses(){

@@ -11,6 +11,12 @@ export default function courseReducer(state=[], action){
         action.course//if course is not an object, cannot use Object.assign() as above
       ];
       break;
+    case types.LOAD_COURSES_SUCCESS:
+      console.log('Redux Flow step 3: Reducer update state in store based on the action.type ' + action.type);
+      // state.push(action.course);
+      //return state;
+      return action.courses;//if course is not an object, cannot use Object.assign() as above
+      break;
     default:
       return state;
 
