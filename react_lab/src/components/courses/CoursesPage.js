@@ -6,29 +6,29 @@ import {bindActionCreators} from 'redux';
 class CoursesPage extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      courseInput:''
-    }
+    // this.state = {
+    //   courseInput:''
+    // }
   };
-  onTitleChange = (event)=>{
-    //event.preventDefault();
-    //const course = this.state.course;
-    //course.title = event.target.value;
-    this.setState({
-      courseInput: event.target.value});
-  }
-  onClickSave = ()=>{
-    //alert("Saving: " + this.state.courseInput);
-    //option 1 to dispatch action:
-    console.log("Redux Flow step 1: dispatching action to redux")
-    //this.props.dispatch(courseActions.createCourse(this.state.courseInput));
-    //option 2: manually dispatch action with help of mapDispatchToProps
-    //this.props.actions.createCourse(this.state.courseInput);
-    this.props.createCourse(this.state.courseInput);
-    this.setState({
-      courseInput:''
-    });
-  }
+  // onTitleChange = (event)=>{
+  //   //event.preventDefault();
+  //   //const course = this.state.course;
+  //   //course.title = event.target.value;
+  //   this.setState({
+  //     courseInput: event.target.value});
+  // }
+  // onClickSave = ()=>{
+  //   //alert("Saving: " + this.state.courseInput);
+  //   //option 1 to dispatch action:
+  //   console.log("Redux Flow step 1: dispatching action to redux")
+  //   //this.props.dispatch(courseActions.createCourse(this.state.courseInput));
+  //   //option 2: manually dispatch action with help of mapDispatchToProps
+  //   //this.props.actions.createCourse(this.state.courseInput);
+  //   this.props.createCourse(this.state.courseInput);
+  //   this.setState({
+  //     courseInput:''
+  //   });
+  // }
   courseRow = (courseTitle, index)=>{
     return <div key={index}>{courseTitle}</div>
   }
@@ -39,9 +39,9 @@ class CoursesPage extends React.Component{
       <div>
           <h1>Courses</h1>
           {this.props.courses.map(this.courseRow)}
-          <h2>Add Courses</h2>
-          <input type="text" onChange={this.onTitleChange} value={this.state.courseInput}/>
-          <input type="submit" value="save" onClick={this.onClickSave}/>
+          // <h2>Add Courses</h2>
+          // <input type="text" onChange={this.onTitleChange} value={this.state.courseInput}/>
+          // <input type="submit" value="save" onClick={this.onClickSave}/>
       </div>
     );
   }
