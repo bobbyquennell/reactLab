@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 //import * as courseActions from '../../actions/courseActions';
 import {createCourse} from '../../actions/courseActions';
 import {bindActionCreators} from 'redux';
+import CourseList from './CourseList';
 class CoursesPage extends React.Component{
   constructor(props){
     super(props);
@@ -35,10 +36,18 @@ class CoursesPage extends React.Component{
   render(){
     //debugger;
     //console.log(this.props.courses);
+
+    const {courses} = this.props;//using ES6 destructuring to assign properties of an object(here is this.props) to
+    //variables of the same name. see more at: https://www.saltycrane.com/blog/2016/03/es6-features-used-react-development/
+    
+    debugger;
     return(
       <div>
           <h1>Courses</h1>
-          {this.props.courses.map(this.courseRow)}
+          {//{this.props.courses.map(this.courseRow)}
+          }
+          <CourseList courses={courses}/>
+
           {// <h2>Add Courses</h2>
           // <input type="text" onChange={this.onTitleChange} value={this.state.courseInput}/>
           // <input type="submit" value="save" onClick={this.onClickSave}/>
