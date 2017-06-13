@@ -39,8 +39,8 @@ class CoursesPage extends React.Component{
 
     const {courses} = this.props;//using ES6 destructuring to assign properties of an object(here is this.props) to
     //variables of the same name. see more at: https://www.saltycrane.com/blog/2016/03/es6-features-used-react-development/
-    
-    debugger;
+
+    //debugger;
     return(
       <div>
           <h1>Courses</h1>
