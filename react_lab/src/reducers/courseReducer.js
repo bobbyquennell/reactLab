@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes'
-
-export default function courseReducer(state=[], action){
+import initialState from './initialState';
+export default function courseReducer(state=initialState.courses, action){
   switch (action.type) {
     case types.CREATE_COURSE:
       console.log('Redux Flow step 3: Reducer update state in store based on the action.type ' + action.type);
