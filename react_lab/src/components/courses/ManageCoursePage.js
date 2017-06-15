@@ -6,6 +6,10 @@ import CourseForm from './CourseForm';
 import PropTypes from 'prop-types';
 
 class ManageCoursePage extends React.Component{
+  //this is used for redirect by context, the declaration can be done outside the class, see below
+  static contextTypes = {
+    router: PropTypes.object
+  };
   constructor(props, context){
     super(props,context);
     this.state = {
@@ -23,7 +27,8 @@ class ManageCoursePage extends React.Component{
   saveCourse = (event)=>{
     event.preventDefault();
     this.props.actions.saveCourse(this.state.course);
-    this.context.router.push('/courses');
+    //this.context.router.push('/courses');this won't work in V4 react router
+    this.context.router.history.push('/courses');
   }
   render(){
     return(
@@ -38,10 +43,11 @@ class ManageCoursePage extends React.Component{
   }
 
 }
+//this is used for redirect by context, the declaration can be done inside the class, see above
+// ManageCoursePage.contextTypes = {
+//   router:PropTypes.object
+// };
 
-ManageCoursePage.contextTypes = {
-  router:PropTypes.object
-};
 
 function mapStateToProps(state, ownProps){
   let course = {id:'', watchHref:'', title:'', authorId:'', length:'', category:''};
