@@ -18,7 +18,11 @@ class App extends React.Component{
         <Route path="/courses" component={CoursesPage} />
         {//<Route path="/course/:id" component={ManageCoursePage} /> this path:id is not needed in react router v4
         }
-        <Route path="/course" component={ManageCoursePage} />
+        <Route exact path="/course" component={ManageCoursePage} /> { // in V4, we need add key word: exact, otherwise, will create two ManageCoursePage compornent in the same path: /course
+          //because we have another Route setting for '/course/:id' below
+
+        }
+        <Route path="/course/:id" component={ManageCoursePage} />
         </div>
       </Router>
     );
