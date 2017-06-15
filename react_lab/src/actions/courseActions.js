@@ -8,11 +8,31 @@ export function createCourse(course) {
 export function loadCoursesSuccess(courses){
   return{type: types.LOAD_COURSES_SUCCESS, courses}
 }
+export function updateCourseSuccess(course){
+  return{type: types.UPDATE_COURSE_SUCCESS, course}
+}
+export function createCourseSuccess(course){
+  return{type: types.CREATE_COURSE_SUCCESS, course}
+}
 
+
+//thunk for async call: getAllCourses, then dispatch another action :
+//loadCoursesSuccess
 export function loadCourses(){
   return function(dispatch){
      return courseApi.getAllCourses().then(courses =>{
         dispatch(loadCoursesSuccess(courses));
+     }).catch(error =>{ throw(error);});
+  };
+}
+
+//thunk for async call: saveCourse, then dispatch another action :
+//updateCourseSuccess or createCourseSuccess, based on the course.id
+export function saveCourse(course){
+  return function(dispatch, getState){
+     return courseApi.saveCourse(course).then(savedCourse =>{
+        course.id? dispatch(updateCourseSuccess(savedCourse)) :
+        dispatch(createCourseSuccess(savedCourse));
      }).catch(error =>{ throw(error);});
   };
 }

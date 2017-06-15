@@ -5,6 +5,8 @@ export function loadAuthorsSuccess(authors){
   return {type: types.LOAD_AUTHORS_SUCCESS, authors};
 }
 
+
+//action thunk: async call then dispatch another action:loadAuthorsSuccess
 export function loadAuthors(){
   return dispatch=>{
     return AuthorApi.getAllAuthors().then(authors =>{
