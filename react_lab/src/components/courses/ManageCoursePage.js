@@ -19,6 +19,10 @@ class ManageCoursePage extends React.Component{
     course[field] = event.target.value;
     return this.setState({course: course});
   }
+  saveCourse = (event)=>{
+    event.preventDefault();
+    this.props.actions.saveCourse(this.state.course);
+  }
   render(){
     return(
          <CourseForm
@@ -26,6 +30,7 @@ class ManageCoursePage extends React.Component{
            course={this.state.course}
            errors={this.state.errors}
            onChange={this.updateCourseState}
+           onSave={this.saveCourse}
          />
        );
   }
