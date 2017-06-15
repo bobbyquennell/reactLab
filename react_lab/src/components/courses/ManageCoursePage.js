@@ -18,6 +18,13 @@ class ManageCoursePage extends React.Component{
     };
     this.updateCourseState = this.updateCourseState.bind(this);
   }
+  componentWillReceiveProps(nextProps){
+    if(this.props.initialCourse.id != nextProps.initialCourse.id){
+      //Necessary to populate form when existing course is loaded directly.
+      this.setState({course:Object.assign({}, nextProps.initialCourse)});
+    }
+  }
+
   updateCourseState(event){
     const field = event.target.name;
     let course = this.state.course;
@@ -60,7 +67,7 @@ function mapStateToProps(state, ownProps){
   //see details at :https://jaketrent.com/post/access-route-params-react-router-v4/
   const courseId= ownProps.match.params.id;// from the path '/course/:id'
   let course = {id:'', watchHref:'', title:'', authorId:'', length:'', category:''};
-  if(courseId){
+  if(courseId && state.courseReducer.length > 0){
     course = getCourseById(state.courseReducer, courseId);
   }
 
