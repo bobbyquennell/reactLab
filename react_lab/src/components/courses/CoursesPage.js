@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {Redirect} from 'react-router-dom';
 import CourseList from './CourseList';
 import ManageCoursePage from './ManageCoursePage';
+
 class CoursesPage extends React.Component{
   constructor(props){
     super(props);
@@ -60,7 +61,7 @@ class CoursesPage extends React.Component{
     //for more details, pls refer to:
     // https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4
     // https://stackoverflow.com/questions/43230194/how-to-use-redirect-in-the-new-react-router-dom-of-reactjs
-    
+
     const {redirect} = this.state;
     if(redirect){
       return <Redirect to='/course' />;

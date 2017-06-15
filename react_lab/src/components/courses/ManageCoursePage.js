@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
+import PropTypes from 'prop-types';
 
 class ManageCoursePage extends React.Component{
   constructor(props, context){
@@ -22,6 +23,7 @@ class ManageCoursePage extends React.Component{
   saveCourse = (event)=>{
     event.preventDefault();
     this.props.actions.saveCourse(this.state.course);
+    this.context.router.push('/courses');
   }
   render(){
     return(
@@ -36,6 +38,10 @@ class ManageCoursePage extends React.Component{
   }
 
 }
+
+ManageCoursePage.contextTypes = {
+  router:PropTypes.object
+};
 
 function mapStateToProps(state, ownProps){
   let course = {id:'', watchHref:'', title:'', authorId:'', length:'', category:''};
