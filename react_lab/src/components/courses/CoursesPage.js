@@ -3,14 +3,20 @@ import {connect} from 'react-redux';
 //import * as courseActions from '../../actions/courseActions';
 import {createCourse} from '../../actions/courseActions';
 import {bindActionCreators} from 'redux';
-import {browserHistory} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import CourseList from './CourseList';
+import ManageCoursePage from './ManageCoursePage';
 class CoursesPage extends React.Component{
   constructor(props){
     super(props);
     // this.state = {
     //   courseInput:''
     // }
+
+    this.state={
+      redirect:false
+    };
+    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   };
   // onTitleChange = (event)=>{
   //   //event.preventDefault();
@@ -36,7 +42,11 @@ class CoursesPage extends React.Component{
   }
 
   redirectToAddCoursePage(){
-    browserHistory.push('/course');
+    //browserHistory.push('/course'); //this navigation is deprecated in react router v4
+    // one of the four new ways to redirect in V4
+    //reference:
+    this.setState({redirect:true});
+
   };
   render(){
     //debugger;
@@ -45,6 +55,16 @@ class CoursesPage extends React.Component{
     const {courses} = this.props;//using ES6 destructuring to assign properties of an object(here is this.props) to
     //variables of the same name. see more at: https://www.saltycrane.com/blog/2016/03/es6-features-used-react-development/
 
+
+    //below is one of the 4 new ways to redirect using react-router v4
+    //for more details, pls refer to:
+    // https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4
+    // https://stackoverflow.com/questions/43230194/how-to-use-redirect-in-the-new-react-router-dom-of-reactjs
+    
+    const {redirect} = this.state;
+    if(redirect){
+      return <Redirect to='/course' />;
+    }
     //debugger;
     return(
       <div>

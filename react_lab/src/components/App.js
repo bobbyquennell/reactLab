@@ -16,7 +16,9 @@ class App extends React.Component{
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/courses" component={CoursesPage} />
-        <Route path="/course/:id" component={ManageCoursePage} />
+        {//<Route path="/course/:id" component={ManageCoursePage} /> this path:id is not needed in react router v4
+        }
+        <Route path="/course" component={ManageCoursePage} />
         </div>
       </Router>
     );
