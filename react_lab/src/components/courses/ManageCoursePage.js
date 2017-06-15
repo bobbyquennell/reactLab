@@ -47,9 +47,21 @@ class ManageCoursePage extends React.Component{
 // ManageCoursePage.contextTypes = {
 //   router:PropTypes.object
 // };
+function getCourseById(courses, id){
+  const course = courses.filter(course => course.id == id);
+  if(course) return course[0]; //since filter returns an array, have to grab the first element.
+  return null;
+}
 
 
+//ownProps will be able to get the parameters from the URL
 function mapStateToProps(state, ownProps){
+  //const courseId= ownProps.params.id;// this won't work in router V4, in V4 we have a prop: 'match' which React Router sends down to the rout component
+  //see details at :https://jaketrent.com/post/access-route-params-react-router-v4/
+  const courseId= ownProps.match.params.id;// from the path '/course/:id'
+  if(courseId){
+    course = getCourseById(state.courseReducer, courseId);
+  }
   let course = {id:'', watchHref:'', title:'', authorId:'', length:'', category:''};
 
   const authorsFormattedForDropdown = state.authorReducer.map(author =>{
