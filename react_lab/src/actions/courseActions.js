@@ -1,5 +1,7 @@
 import * as types from './actionTypes';
 import courseApi from '../api/mockCourseApi';
+import {beginAjaxCall} from './ajaxStatusActions';
+
 export function createCourse(course) {
   //debugger;
   console.log("Redux Flow step 2: Action Creator: createCouse " + course);
@@ -20,6 +22,7 @@ export function createCourseSuccess(course){
 //loadCoursesSuccess
 export function loadCourses(){
   return function(dispatch){
+    dispatch(beginAjaxCall());
      return courseApi.getAllCourses().then(courses =>{
         dispatch(loadCoursesSuccess(courses));
      }).catch(error =>{ throw(error);});
@@ -30,6 +33,7 @@ export function loadCourses(){
 //updateCourseSuccess or createCourseSuccess, based on the course.id
 export function saveCourse(course){
   return function(dispatch, getState){
+    dispatch(beginAjaxCall());
      return courseApi.saveCourse(course).then(savedCourse =>{
         course.id? dispatch(updateCourseSuccess(savedCourse)) :
         dispatch(createCourseSuccess(savedCourse));
