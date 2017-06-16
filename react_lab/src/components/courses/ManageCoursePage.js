@@ -33,9 +33,13 @@ class ManageCoursePage extends React.Component{
   }
   saveCourse = (event)=>{
     event.preventDefault();
-    this.props.actions.saveCourse(this.state.course);
-    //this.context.router.push('/courses');this won't work in V4 react router
-    this.context.router.history.push('/courses');
+    this.props.actions.saveCourse(this.state.course).then(
+      ()=>{
+        //this.context.router.push('/courses');this won't work in V4 react router
+        this.context.router.history.push('/courses');
+      });
+
+    //this.context.router.history.push('/courses'); move it to thunk's promises, see above
   }
   render(){
     return(
