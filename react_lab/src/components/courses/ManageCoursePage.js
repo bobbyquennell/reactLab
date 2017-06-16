@@ -14,7 +14,8 @@ class ManageCoursePage extends React.Component{
     super(props,context);
     this.state = {
       course: Object.assign({}, this.props.initialCourse),
-      errors:{}
+      errors:{},
+      saving: false
     };
     this.updateCourseState = this.updateCourseState.bind(this);
   }
@@ -33,11 +34,17 @@ class ManageCoursePage extends React.Component{
   }
   saveCourse = (event)=>{
     event.preventDefault();
+    this.setState({saving:true});
     this.props.actions.saveCourse(this.state.course).then(
       ()=>{
+        this.setState({saving:false});
         toastr.success('Course Saved')
         //this.context.router.push('/courses');this won't work in V4 react router
         this.context.router.history.push('/courses');
+      })
+      .catch(error =>{
+        this.setState({saving:false});
+        toastr.error(error);
       });
 
     //this.context.router.history.push('/courses'); move it to thunk's promises, see above
@@ -50,6 +57,7 @@ class ManageCoursePage extends React.Component{
            errors={this.state.errors}
            onChange={this.updateCourseState}
            onSave={this.saveCourse}
+           loading={this.state.saving}
          />
        );
   }
