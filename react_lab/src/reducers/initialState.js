@@ -1,6 +1,7 @@
 export default{
   authors:[],
-  courses:[]
+  courses:[],
+  numAjaxCallsInProgress:0
 }
 //as we create more and more reducers, it becomes rather tricky to hold exactly
 //what's in the store in your head.
