@@ -14,7 +14,8 @@ class ManageCoursePage extends React.Component{
     super(props,context);
     this.state = {
       course: Object.assign({}, this.props.initialCourse),
-      errors:{}
+      errors:{},
+      saving: false
     };
     this.updateCourseState = this.updateCourseState.bind(this);
   }
@@ -33,8 +34,10 @@ class ManageCoursePage extends React.Component{
   }
   saveCourse = (event)=>{
     event.preventDefault();
+    this.setState({saving:true});
     this.props.actions.saveCourse(this.state.course).then(
       ()=>{
+        this.setState({saving:false});
         //this.context.router.push('/courses');this won't work in V4 react router
         this.context.router.history.push('/courses');
       });
@@ -49,6 +52,7 @@ class ManageCoursePage extends React.Component{
            errors={this.state.errors}
            onChange={this.updateCourseState}
            onSave={this.saveCourse}
+           saving={this.state.saving}
          />
        );
   }

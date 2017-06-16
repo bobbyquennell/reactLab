@@ -6,7 +6,7 @@ import SelectInput from "../common/SelectInput";
 // in the function's argument list. which will keep the calls nice and short.
 // another benefit is making the component's dependencies clear: you can glance at the
 //function signature and clearly see what's required.
-const CourseForm = ({course, allAuthors, onSave, onChange, loading,errors}) => {
+const CourseForm = ({course, allAuthors, onSave, onChange, saving,errors}) => {
   return (
     <form>
       <h1>Manage Course</h1>
@@ -37,8 +37,8 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading,errors}) => {
         error={errors.length}/>
       <input
         type='submit'
-        disabled={loading}
-        value={loading ? 'Saving...' : 'Save'}
+        disabled={saving}
+        value={saving ? 'Saving...' : 'Save'}
         className='btn btn-primary'
         onClick={onSave}/>
 
