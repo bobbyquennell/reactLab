@@ -6,13 +6,14 @@ import AboutPage from './about/AboutPage';
 import Header from './common/Header';
 import CoursesPage from './courses/CoursesPage';
 import ManageCoursePage from './courses/ManageCoursePage';
+import {connect} from 'react-redux';
 
 class App extends React.Component{
   render(){
     return(
       <Router path="/" component={App}>
         <div id="app">
-         <Header/>
+         <Header loading={this.props.loading}/>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/courses" component={CoursesPage} />
@@ -30,8 +31,10 @@ class App extends React.Component{
   }
 }
 
-// App.PropTypes = {
-//   children: PropTypes.object.isRequired
-// };
+function mapStateToProps(state, ownProps){
+  return{
+    loading: state.ajaxCallsInProgress >0
+  }
+}
 
-export default App;
+export default connect(mapStateToProps)(App);
