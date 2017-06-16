@@ -13,6 +13,7 @@ store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 console.log(store.getState());
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ //ReactDOM.render(<App />, document.getElementById('root'));//this is used for e1-e3 apps;
 // const RootCotainer = ()=>{
 //   return (
 //

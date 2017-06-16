@@ -27,7 +27,7 @@ body {
 .fa-star{
 	margin:0.5em;
 }
-span{
+span.e3{
 	margin:0.5em;
 	background-color: #ccc;
 	text-align: center;
@@ -38,14 +38,14 @@ span{
 	cursor: pointer;
 }
 
-span.used{
+span.e3.used{
 	cursor:not-allowed;
 	background-color: #aaddaa;
 	color: #99bb99;
 
 }
 
-span.selected{
+span.e3.selected{
 	background-color: #eee;
 	color: #ddd;
 	cursor:not-allowed;

@@ -39,7 +39,7 @@ const Star=(props)=>{
 const Answer=(props)=>{
 	return(
 		 <div className="col-5">
-		 	{props.selectedNumbers.map((number, i)=><span key={i} onClick={()=>props.UnselectHandler(number)}>{number}</span>)}
+		 	{props.selectedNumbers.map((number, i)=><span className={'e3'} key={i} onClick={()=>props.UnselectHandler(number)}>{number}</span>)}
 		 </div>
 
 		)
@@ -98,8 +98,8 @@ const Button=(props)=>{
 // 	render(){
 // 		return (
 // 		<div className="card text-center">
-// 			{this.state.numbers.map((number, i)=><span 
-// 				className={this.decideClassName(number)} key={i} 
+// 			{this.state.numbers.map((number, i)=><span
+// 				className={this.decideClassName(number)} key={i}
 // 				onClick={this.props.clickHandler(number,this.decideClassName(number))}>{number}</span>)}
 // 		</div>
 // 		);
@@ -122,7 +122,7 @@ const Numbers=(props)=>{
 	}
 	return(
 		<div className=" card text-center">
-			{numbers.map((number, i)=><span className={decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number);}}>{number}</span>)}
+			{numbers.map((number, i)=><span className={'e3 '+ decideClassName(number)} key={i} onClick={()=>{ props.clickHandler(number);}}>{number}</span>)}
 		</div>
 		)
 }
