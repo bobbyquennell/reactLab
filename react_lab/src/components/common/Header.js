@@ -2,7 +2,7 @@ import React from 'react';
 import {Link}from 'react-router-dom';
 import LoadingDots from './LoadingDots';
 
-const Header = ()=>{
+const Header = ({loading})=>{
   return(
     <nav>
       <Link to="/">Home</Link>
@@ -10,7 +10,8 @@ const Header = ()=>{
       <Link to="/about">About</Link>
       {'|'}
       <Link to="/courses">Courses</Link>
-      <LoadingDots interval={100} dots={20}/>
+      {loading &&<LoadingDots interval={100} dots={20}/> }
+
     </nav>
   );
 };
