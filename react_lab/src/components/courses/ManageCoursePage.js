@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import PropTypes from 'prop-types';
-
+import toastr from 'toastr';
 class ManageCoursePage extends React.Component{
   //this is used for redirect by context, the declaration can be done outside the class, see below
   static contextTypes = {
@@ -38,8 +38,13 @@ class ManageCoursePage extends React.Component{
     this.props.actions.saveCourse(this.state.course).then(
       ()=>{
         this.setState({saving:false});
+        toastr.success('Course Saved')
         //this.context.router.push('/courses');this won't work in V4 react router
         this.context.router.history.push('/courses');
+      })
+      .catch(error =>{
+        this.setState({saving:false});
+        toastr.error(error);
       });
 
     //this.context.router.history.push('/courses'); move it to thunk's promises, see above
