@@ -14,7 +14,6 @@ function setup(saving){
   };
   //let renderer = TestUtils.createRender();
   let renderer = new ShallowRenderer();
-  debugger;
   renderer.render(<CourseForm {...props}/>);
   let output = renderer.getRenderOutput();
 
