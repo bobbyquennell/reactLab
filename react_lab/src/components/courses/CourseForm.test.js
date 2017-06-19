@@ -25,11 +25,11 @@ function setup(saving){
 }
 
 describe('CourseForm via React Test Utils', ()=>{
-  it('renders from and h1', ()=>{
+  it('renders form and h1', ()=>{
      const {output} = setup(false);
      expect(output.type).toBe('form');
      let [h1] = output.props.children;
-     expect(h1.type).toBe(h1);
+     expect(h1.type).toBe('h1');
 
   });
 
