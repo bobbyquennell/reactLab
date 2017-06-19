@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "expect": "^1.20.2",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
@@ -12,10 +13,12 @@
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-test-renderer": "^15.6.1",
     "redux": "^3.6.0",
     "toastr": "^2.1.2"
   },
   "devDependencies": {
+    "mocha": "^3.4.2",
     "react-scripts": "0.9.5",
     "redux-immutable-state-invariant": "^2.0.0",
     "redux-thunk": "^2.2.0"
@@ -23,7 +26,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "mocha --reporter spec tools/testSetup.js --compilers babel-core/register \"src/**/*.test.js\"",
+    "mocha-test:watch": "npm run mocha-test -- --watch"
   }
 }
