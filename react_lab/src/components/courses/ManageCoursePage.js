@@ -5,8 +5,8 @@ import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
-class ManageCoursePage extends React.Component{
-  //this is used for redirect by context, the declaration can be done outside the class, see below
+export class ManageCoursePage extends React.Component{
+
   static contextTypes = {
     router: PropTypes.object
   };
