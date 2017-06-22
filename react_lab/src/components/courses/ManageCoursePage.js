@@ -7,6 +7,9 @@ import PropTypes from 'prop-types';
 import toastr from 'toastr';
 export class ManageCoursePage extends React.Component{
 
+  //note: static property is not a es6 feature, will cause babel compiling error:see :https://github.com/yannickcr/eslint-plugin-react/issues/203
+  //how to solve: install: babel-plugin-transform-class-properties and update the .babelrc file settings
+  // see details at :https://babeljs.io/docs/plugins/transform-class-properties/
   static contextTypes = {
     router: PropTypes.object
   };
@@ -32,6 +35,10 @@ export class ManageCoursePage extends React.Component{
     course[field] = event.target.value;
     return this.setState({course: course});
   }
+  //below is also an experimental syntax: property initializer syntax: https://facebook.github.io/react/docs/handling-events.html
+  //we need to install: babel-plugin-transform-class-properties and update the .babelrc file settings.
+  //otherwise, will have babel compiling errors when run test with mocha.
+  //see details at :https://babeljs.io/docs/plugins/transform-class-properties/
   saveCourse = (event)=>{
     event.preventDefault();
     this.setState({saving:true});
