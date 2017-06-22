@@ -22,6 +22,7 @@ export class ManageCoursePage extends React.Component{
       saving: false
     };
     this.updateCourseState = this.updateCourseState.bind(this);
+    this.courseFormIsValid = this.courseFormIsValid.bind(this);
   }
   componentWillReceiveProps(nextProps){
     if(this.props.initialCourse.id != nextProps.initialCourse.id){
@@ -36,12 +37,26 @@ export class ManageCoursePage extends React.Component{
     course[field] = event.target.value;
     return this.setState({course: course});
   }
+
+  courseFormIsValid(){
+    let formIsValid = true;
+    let errors = {};
+    if(this.state.course.title.length < 5){
+      errors.title = 'Title must be at least 5 characters.';
+      formIsValid = false;
+    }
+    this.setState({errors: errors});
+    return formIsValid;
+  }
   //below is also an experimental syntax: property initializer syntax: https://facebook.github.io/react/docs/handling-events.html
   //we need to install: babel-plugin-transform-class-properties and update the .babelrc file settings.
   //otherwise, will have babel compiling errors when run test with mocha.
   //see details at :https://babeljs.io/docs/plugins/transform-class-properties/
   saveCourse = (event)=>{
     event.preventDefault();
+    if(!this.courseFormIsValid()){
+      return;
+    }
     this.setState({saving:true});
     this.props.actions.saveCourse(this.state.course).then(
       ()=>{

@@ -22,7 +22,7 @@ describe('Manage Course Page', ()=>{
     const propsMock = {
       authors:[],
       actions:{ saveCourse: ()=>{return Promise.resolve();}},
-      course:{id:'', watchHref:'', title:'', authorId:'', length:'', category:''}
+      initialCourse:{id:'', watchHref:'', title:'', authorId:'', length:'', category:''}
     };
     const wrapper = mount(<ManageCoursePage {...propsMock}/>);
     const saveButton = wrapper.find('input').last();
