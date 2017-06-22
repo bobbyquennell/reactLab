@@ -5,6 +5,7 @@ import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
+
 export class ManageCoursePage extends React.Component{
 
   //note: static property is not a es6 feature, will cause babel compiling error:see :https://github.com/yannickcr/eslint-plugin-react/issues/203
@@ -50,7 +51,9 @@ export class ManageCoursePage extends React.Component{
         this.context.router.history.push('/courses');
       })
       .catch(error =>{
+        //error:server side error: server side validation failed from mockCourseApi.js
         this.setState({saving:false});
+        debugger;
         toastr.error(error);
       });
 
