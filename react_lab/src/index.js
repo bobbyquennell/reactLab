@@ -6,7 +6,7 @@ import App from './components/App';//swtich between different apps by editing th
 import {loadCourses} from './actions/courseActions';
 import {loadAuthors} from './actions/authorActions';
 import './index.css';
-import configureStore from './store/configureStore';
+import configureStore from './store/configStore';
 import {Provider} from 'react-redux';
 import '../node_modules/toastr/build/toastr.min.css';
 const store = configureStore();
