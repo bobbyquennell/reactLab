@@ -43,7 +43,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
+    "lint":"node_modules/.bin/esw webpack.config.* src tools",
+    "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter spec tools/testSetup.js \"src/**/*.test.js\"",
-    "test:watch": "npm run mocha-test -- --watch"
+    "test:watch": "npm run mocha-test -- --watch",
+    "remove-dist":"node_modules/.bin/rimraf ./dist",
+    "clean-dist":"npm run remove-dist && mkdir dist",
+    "build:html":"babel-node tools/buildHtml.js",
+    "prebuild":"npm-run-all clean-dist test lint build:html",
+    "build":"babel-node tools/build.js",
+    "postbuild":"babel-node tools/distServer.js"
+
   }
 }
