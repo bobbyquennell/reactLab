@@ -25,32 +25,32 @@ body {
 
 
 .fa-star{
-	margin:0.5em;
+    margin:0.5em;
 }
 span.e3{
-	margin:0.5em;
-	background-color: #ccc;
-	text-align: center;
-	display: inline-block;
-	border-radius: 50%;
-	font-size: 1.5em;
-	width:1.5em;
-	cursor: pointer;
+    margin:0.5em;
+    background-color: #ccc;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 1.5em;
+    width:1.5em;
+    cursor: pointer;
 }
 
 span.e3.used{
-	cursor:not-allowed;
-	background-color: #aaddaa;
-	color: #99bb99;
+    cursor:not-allowed;
+    background-color: #aaddaa;
+    color: #99bb99;
 
 }
 
 span.e3.selected{
-	background-color: #eee;
-	color: #ddd;
-	cursor:not-allowed;
+    background-color: #eee;
+    color: #ddd;
+    cursor:not-allowed;
 }
 
 .card {
-	display: block;
+    display: block;
 }

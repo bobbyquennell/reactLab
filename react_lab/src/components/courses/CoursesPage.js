@@ -7,18 +7,19 @@ import {Redirect} from 'react-router-dom';
 import CourseList from './CourseList';
 import ManageCoursePage from './ManageCoursePage';
 
+/*eslint-disable no-console*/
 class CoursesPage extends React.Component{
-  constructor(props){
-    super(props);
+    constructor(props){
+        super(props);
     // this.state = {
     //   courseInput:''
     // }
 
-    this.state={
-      redirect:false
-    };
-    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
-  };
+        this.state={
+            redirect:false
+        };
+        this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+    }
   // onTitleChange = (event)=>{
   //   //event.preventDefault();
   //   //const course = this.state.course;
@@ -38,22 +39,22 @@ class CoursesPage extends React.Component{
   //     courseInput:''
   //   });
   // }
-  courseRow = (course, index)=>{
-    return <div key={index}>{course.title}</div>
-  }
+    courseRow = (course, index)=>{
+        return <div key={index}>{course.title}</div>;
+    }
 
-  redirectToAddCoursePage(){
+    redirectToAddCoursePage(){
     //browserHistory.push('/course'); //this navigation is deprecated in react router v4
     // one of the four new ways to redirect in V4
     //reference:
-    this.setState({redirect:true});
+        this.setState({redirect:true});
 
-  };
-  render(){
+    }
+    render(){
     //debugger;
     //console.log(this.props.courses);
 
-    const {courses} = this.props;//using ES6 destructuring to assign properties of an object(here is this.props) to
+        const {courses} = this.props;//using ES6 destructuring to assign properties of an object(here is this.props) to
     //variables of the same name. see more at: https://www.saltycrane.com/blog/2016/03/es6-features-used-react-development/
 
 
@@ -62,19 +63,19 @@ class CoursesPage extends React.Component{
     // https://stackoverflow.com/questions/42123261/programmatically-navigate-using-react-router-v4
     // https://stackoverflow.com/questions/43230194/how-to-use-redirect-in-the-new-react-router-dom-of-reactjs
 
-    const {redirect} = this.state;
-    if(redirect){
-      return <Redirect to='/course' />;
-    }
+        const {redirect} = this.state;
+        if(redirect){
+            return <Redirect to="/course" />;
+        }
     //debugger;
-    return(
+        return(
       <div>
           <h1>Courses</h1>
           {//{this.props.courses.map(this.courseRow)}
           }
-          <input type='submit'
-                 value='Add Course'
-                 className='btn btn-primary'
+          <input type="submit"
+                 value="Add Course"
+                 className="btn btn-primary"
                  onClick={this.redirectToAddCoursePage}/>
           <br/>
           <br/>
@@ -85,15 +86,15 @@ class CoursesPage extends React.Component{
           // <input type="submit" value="save" onClick={this.onClickSave}/>
         }
       </div>
-    );
-  }
+        );
+    }
 }
 
 function mapStateToProps(state, ownProps){//this state here represent the state in redux store
-  console.log('Redux Flow step 4: rendering the latest store state: courses--mapStateToProps');
-  return{
-    courses:state.courseReducer//the courses here will be the property exposed to our component
-  }
+    console.log('Redux Flow step 4: rendering the latest store state: courses--mapStateToProps');
+    return{
+        courses:state.courseReducer//the courses here will be the property exposed to our component
+    };
 }
 //option 2: manually mappting with mapDispatchToProps function detertimnes what actions are available in the component
 // function mapDispatchToProps(dispatch){
@@ -103,7 +104,7 @@ function mapStateToProps(state, ownProps){//this state here represent the state 
 //   }
 // }
 const mapDispatchToProps = {
-  createCourse
+    createCourse
 };
 // const connectedStateAndProps = connect(mapStateToProps, mapDispatchToProps);
 // export default connectedStateAndProps(CoursesPage);

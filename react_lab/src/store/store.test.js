@@ -7,11 +7,11 @@ import initialState from '../reducers/initialState';
 import * as courseActions from '../actions/courseActions';
 
 describe('Store', function(){
-  it('Should handle creating courses', function(){
+    it('Should handle creating courses', function(){
         //arrange
         const store = createStore(rootReducer, initialState);
         const course = {
-          title:'Clean Code'
+            title:'Clean Code'
         };
         //act
         const action = courseActions.createCourseSuccess(course);
@@ -21,9 +21,9 @@ describe('Store', function(){
         //assert
         const actual = store.getState().courseReducer[0];
         const expected = {
-          title:'Clean Code'
+            title:'Clean Code'
         };
         expect(actual).toEqual(expected);
 
-  });
+    });
 });
