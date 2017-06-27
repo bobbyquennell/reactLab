@@ -26,7 +26,7 @@ export default {
         new webpack.optimize.UglifyJsPlugin()
     ],
     module:{
-        loader:[
+        loader:[//note: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/110
             {test:/\.js$/,include:path.join(__dirname,'src'), loaders:['babel']},
             {test:/(\.css)$/, loaders:ExtractTextPlugin.extract("css?sourceMap")},
             {test:/\.eot(\?v=\d+\.\d+\.\d+)?$/, loader:'file'},
