@@ -2,7 +2,7 @@
 //import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './e3.js';//'./e1.js';//'./components/App';//swtich between different apps by editing the path here
+import App from './components/App';//'./e1.js';//'./components/App';//swtich between different apps by editing the path here
 import {loadCourses} from './actions/courseActions';
 import {loadAuthors} from './actions/authorActions';
 import './index.css';
@@ -11,12 +11,12 @@ import {Provider} from 'react-redux';
 import '../node_modules/toastr/build/toastr.min.css';
 
 /*eslint-disable no-console*/
-// const store = configureStore();
-// store.dispatch(loadCourses());
-// store.dispatch(loadAuthors());
-// console.log(store.getState());
-// ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
-ReactDOM.render(<App />, document.getElementById('root'));//this is used for e1-e3 apps;
+const store = configureStore();
+store.dispatch(loadCourses());
+store.dispatch(loadAuthors());
+console.log(store.getState());
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+//ReactDOM.render(<App />, document.getElementById('root'));//this is used for e1-e3 apps;
 // const RootCotainer = ()=>{
 //   return (
 //
