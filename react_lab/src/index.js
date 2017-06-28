@@ -2,7 +2,7 @@
 //import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './e2_2.js';//'./components/App';//swtich between different apps by editing the path here
+import App from './e3.js';//'./e1.js';//'./components/App';//swtich between different apps by editing the path here
 import {loadCourses} from './actions/courseActions';
 import {loadAuthors} from './actions/authorActions';
 import './index.css';

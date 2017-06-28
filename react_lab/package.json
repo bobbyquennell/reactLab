@@ -19,6 +19,7 @@
     "toastr": "^2.1.2"
   },
   "devDependencies": {
+    "axios": "^0.16.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
@@ -31,21 +32,27 @@
     "babel-register": "^6.24.1",
     "cheerio": "^1.0.0-rc.1",
     "colors": "^1.1.2",
+    "compression": "^1.6.2",
     "doctrine": "^2.0.0",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^7.1.0",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.15.3",
     "jsdom": "^11.0.0",
     "mocha": "^3.4.2",
     "nock": "^9.0.13",
     "npm-run-all": "^4.0.2",
+    "open": "0.0.5",
     "react-scripts": "0.9.5",
     "redux-immutable-state-invariant": "^2.0.0",
     "redux-mock-store": "^1.2.3",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "babel-node tools/srcServer.js",
     "build": "babel-node tools/build.js",
     "eject": "react-scripts eject",
     "lint": "node_modules/.bin/eslint src tools",

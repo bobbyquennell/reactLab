@@ -8,9 +8,10 @@ import open from 'open';
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
+//console.log('config:\n'+JSON.stringify(config));
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo:true,
-    publicPath:config.ouput.publicPath
+    publicPath:config.output.publicPath
 }));
 app.use(require('webpack-hot-middleware')(compiler));
 app.get('*', function(reg, res){
@@ -21,6 +22,6 @@ app.listen(port, function(err){
     if(err){
         console.log(err);
     }else {
-        open('http://localhost:${port}');
+        open(`http://localhost:${port}`);
     }
 });

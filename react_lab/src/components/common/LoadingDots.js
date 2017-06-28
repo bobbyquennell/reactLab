@@ -33,10 +33,13 @@ class LoadingDots extends React.Component{
     }
 
 }
+
 //defaultProps: see: https://facebook.github.io/react/docs/react-component.html#defaultprops
-LoadingDots.defaultProps = {
-    interval:300, dots:3
-};
+// LoadingDots.defaultProps = {
+//     interval:300, dots:3
+// };
+//2017-06-28 remove defaultProps above to avoid "Unknown Prop Warning" in browser console
+//https://facebook.github.io/react/warnings/unknown-prop.html
 
 
 export default LoadingDots;
