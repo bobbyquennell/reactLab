@@ -38,12 +38,12 @@ const Star=(props)=>{
 };
 
 const Answer=(props)=>{
-    const handleClick = (number)=>{
-        props.UnselectHandler(number);
+    const handleClick = (e)=>{
+        props.UnselectHandler(e);
     };
     return(
          <div className="col-5">
-             {props.selectedNumbers.map((number, i)=><span className={'e3'} key={i} onClick={this.handleClick(number)}>{number}</span>)}
+             {props.selectedNumbers.map((number, i)=><span className={'e3'} key={i} onClick={()=>{props.UnselectHandler(number);}}>{number}</span>)}
          </div>
 
     );
@@ -52,7 +52,7 @@ const Button=(props)=>{
     const handleSubmit= ()=>{
         props.submitAnwser();
     };
-    const handleCheckAnswer = ()=>{
+    const handleCheckAnwser = ()=>{
         props.checkAnwser();
     };
     const handleRedraw = ()=>{
@@ -63,14 +63,19 @@ const Button=(props)=>{
     switch(props.isAnswerCorrect)
         {
     case true:
-        Mybutton = <button className="btn btn-success btn-lg" disabled={props.selectedNumbers.length<=0} onClick={this.handleSubmit}><i className="fa fa-check" /></button>;
+    // note: in function component, there is no "this" keyword, onClick={this.handleSubmit} should be: onClick={handleSubmit}
+    //see:
+    //https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc
+        Mybutton = <button className="btn btn-success btn-lg" disabled={props.selectedNumbers.length<=0} onClick={handleSubmit}><i className="fa fa-check" /></button>;
         break;
     case false:
         Mybutton=<button className="btn btn-danger btn-lg" disabled={props.selectedNumbers.length<=0}><i className="fa fa-times" /></button>;
         break;
     default:
-        Mybutton=<button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0} onClick={
-            this.handleCheckAnswer}>=</button>;
+    // note: in function component, there is no "this" keyword, onClick={this.handleCheckAnwser} should be: onClick={handleCheckAnwser}
+    //see:
+    //https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc
+        Mybutton= <button className="btn btn-default btn-lg" disabled={props.selectedNumbers.length<=0} onClick={handleCheckAnwser}>=</button>;
         break;
     }
 
@@ -79,7 +84,11 @@ const Button=(props)=>{
          <div className="col-2 text-center">
            {Mybutton}
            <br/><br/>
-           <button className="btn btn-warning"onClick={this.handleRedraw} disabled={props.redrawLimit===0}>
+           {// note: in function component, there is no "this" keyword, onClick={this.handleRedraw} should be: onClick={handleRedraw}
+           //see:
+           //https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc
+           }
+           <button className="btn btn-warning" onClick={handleRedraw} disabled={props.redrawLimit===0}>
                <i className="fa fa-refresh" /> {props.redrawLimit}
            </button>
          </div>
@@ -138,7 +147,7 @@ const Numbers=(props)=>{
     };
     return(
         <div className=" card text-center">
-            {numbers.map((number, i)=><span className={'e3 '+ decideClassName(number)} key={i} onClick={this.clickHandler(number)}>{number}</span>)}
+            {numbers.map((number, i)=><span className={'e3 '+ decideClassName(number)} key={i} onClick={()=>{props.clickHandler(number);}}>{number}</span>)}
         </div>
     );
 };
