@@ -24,27 +24,27 @@ export default {
         new webpack.optimize.UglifyJsPlugin()
     ],
     module:{
-        // loaders:[//note: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/110
-        //     {test:/\.js$/,include:path.join(__dirname,'src'), loaders:['babel-loader']},
-        //     {test:/(\.css)$/, loader:ExtractTextPlugin.extract("css?sourceMap")},
-        //     {test:/\.eot(\?v=\d+\.\d+\.\d+)?$/, loader:'file'},
-        //     {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},
-        //     {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
-        //     {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
-        // ],
-        rules:[
+        loaders:[//note: https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/110
             {test:/\.js$/,include:path.join(__dirname,'src'), loaders:['babel-loader']},
-          {
-            test: /\.css$/,
-            use: [
-            { loader: "style-loader" },
-            { loader: "css-loader" },
-            ]
-          },
-          {test:/\.eot(\?v=\d+\.\d+\.\d+)?$/, loader:'file'},
-          {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},
-          {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
-          {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
+            {test:/(\.css)$/, loader:ExtractTextPlugin.extract("css?sourceMap")},
+            {test:/\.eot(\?v=\d+\.\d+\.\d+)?$/, loader:'file'},
+            {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
         ],
+        // rules:[
+        //     {test:/\.js$/,include:path.join(__dirname,'src'), loaders:['babel-loader']},
+        //   {
+        //     test: /\.css$/,
+        //     use: [
+        //     { loader: "style-loader" },
+        //     { loader: "css-loader" },
+        //     ]
+        //   },
+        //   {test:/\.eot(\?v=\d+\.\d+\.\d+)?$/, loader:'file'},
+        //   {test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000'},
+        //   {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+        //   {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
+        // ],
     }
 };

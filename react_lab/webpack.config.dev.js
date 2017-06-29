@@ -25,7 +25,7 @@ export default {
     },
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoErrorsPlugin()
     ],
     module:{
         loaders:[
