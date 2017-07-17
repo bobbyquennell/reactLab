@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import _ from 'lodash';
 /*this is an App for React Js Getting Started by Samer Buna, Chapter 4: Building the Game interface*/
 /*eslint-disable no-console*/
@@ -168,7 +168,7 @@ class Game extends React.Component{
             usedNumbers:[],
             starCount:this.randomStarNumber(),
             isAnswerCorrect:null,
-            redrawLimit:15,
+            redrawLimit:5,
             doneStatus:null
         });
         this.selectNumber = this.selectNumber.bind(this);
